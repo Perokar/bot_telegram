@@ -1,43 +1,25 @@
 
 const TelegramApi = require('node-telegram-bot-api');
+const userSchema = require('./schems/userSchema')
 const token = "2094226777:AAGVqTju7yVGZoZp72UOfSSDO56cG7OPx8k";
 const bot = new TelegramApi(token, {polling:true});
-const usersTelegram = {};
-    
-bot.on("message",  (msg)=>{
-    const userText = msg.text;
-    const nameUser = msg.chat.first_name;
-    const userId = msg.chat.id;
 
-   console.log(msg)
-    function sayHi(Id){ 
-        bot.sendMessage(Id, `Привіт, я DomiNick, твій віртуальний помічник.
-        Завтра твій перший робочий день в Domino's Pizza Ukraine!
-        Я познайомлю тебе з компанією та розкажу, що де знаходиться.`)
-        .then(setTimeout(() => {bot.sendMessage(Id, `Пропоную тобі такий план-мінімум на завтра:
+const id='empty';
+bot.on("message",   async (msg)=>{
+  // console.log(msg);
+   bot.sendMessage(msg.from.id, "Вы уже посчитаны")
+  const id = {
+      userId: await msg.from.id,
+      userName: await msg.from.first_name 
+  }
+   console.log(id)
+   module.exports.id = id;
+if (msg.text == "/start") // Добавление в базу
+        {
+        userSchema.addNewUser();
+        bot.sendMessage(msg.from.id, "Я токо что добавил Вас в базу данных")
+        }
+}
+)
 
-        1. Подай документи до відділу кадрів.
-        Чекліст:
-        а) Трудова книга
-        б) ІНН та паспорт (з додатком про реєстацію, якщо в тебе ID)
-        в) Три фотографії (розміром 3х4)
-        г) Диплом про вищу освіту
-        д) Свідоцтво про шлюб та народження дитини (за наявності)
-        е) Документи надання пільг (за наявності)
-        
-        2. Зустрінься зі своїм керівником та познайомся з колегами
-        
-        3. Прогуляйся офісом
-        
-        ПСпс: якшо знадобиться WIFI, підключайся до "Dominos Pizza", пароль 0442221111`)
-            
-        }, 2000));
-       console.log('ssmile');
-    }
-    
-    if (userText==="/start"){
-       
-        sayHi(userId);    
-    }
-})
 
