@@ -2,19 +2,23 @@ const mongoose = require('mongoose');
 const mainIndex = require('../index')
 const Schema = mongoose.Schema;
 const cfg = require('../cfg/cfg.js')
-const userSchema = new Schema ({
-    id: Number,
-    name:String
-})
-const User = mongoose.model ('user', userSchema);
-exports.addNewUser = function addNewUser (){
-const user = new User(mainIndex.id);
 mongoose.connect(cfg.URI , {useUnifiedTopology: true, useNewUrlParser: true});
-user.save (function (err){
-    mongoose.disconnect();
-    if (err){
-        console.log(err);
-    }
-    console.log ("User "+user+" is save")
+const userSchema = new Schema ({
+    userId: Number,
+    userName:String,
+    dateNow: Number
+})
+const User = mongoose.model ('user', userSchema); //запись юзера
+ function addNewUser (dataUser){    
+    const user = new User(dataUser);
+    user.save (function (err){
+        if (err){
+            console.log(err);
+                }   
 })
 }
+async function checkUser() { //проверка юзера
+    const userCollection = await User.find({});
+    console.log(userCollection);
+}
+module.exports = {addNewUser, checkUser}
