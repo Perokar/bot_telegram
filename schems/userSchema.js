@@ -6,7 +6,8 @@ mongoose.connect(cfg.URI , {useUnifiedTopology: true, useNewUrlParser: true});
 const userSchema = new Schema ({
     userId: Number,
     userName:String,
-    dateNow: Number
+    dateNow: Number,
+    status: String
 })
 const User = mongoose.model ('user', userSchema); //запись юзера
  function addNewUser (dataUser){    
@@ -21,4 +22,8 @@ async function checkUser() { //проверка юзера
     const userCollection = await User.find({});
     console.log(userCollection);
 }
-module.exports = {addNewUser, checkUser}
+async function clearUser(){
+    await User.deleteMany();
+}
+
+module.exports = {addNewUser, checkUser, clearUser}
