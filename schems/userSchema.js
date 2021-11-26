@@ -18,10 +18,11 @@ const User = mongoose.model ('user', userSchema); //запись юзера
                 }   
 })
 }
+
 async function checkUser() { //проверка юзера
-    const userCollection = await User.find({});
-    console.log(userCollection);
+    return  User.find({});  
 }
+
 async function clearUser(){
     await User.deleteMany();
 }
