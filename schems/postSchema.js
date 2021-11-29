@@ -179,7 +179,7 @@ function addPost(){
 })
 }
 async function sendStartPost(){
-    const post = await Post.find({datePost:'day0'})
+    const post = await Post.find({datePost:0})
     return post;
 }
 async function checkPost() {
