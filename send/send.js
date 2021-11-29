@@ -1,7 +1,7 @@
 // use driver pattern
 // use winston instead of console.log
 
-const {cron, logger} = require('./drivers');
+const {cron, logger} = require('../drivers');
 const {addNewUser, checkUser, clearUser, User} = require('../schems/userSchema');
 const {Post} = require('../schems/postSchema');
 const {bot} = require ('../index');
