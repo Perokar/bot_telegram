@@ -11,9 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "mongoose": "^6.0.13",
-    "node-telegram-bot-api": "^0.54.0",
+    "node-cron": "^3.0.0",
+    "node-telegram-bot-api": "^0.18.0",
     "nodemon": "^2.0.14"
   },
-  "devDependencies": {},
   "description": ""
 }
