@@ -5,8 +5,8 @@ const cfg = require('../cfg/cfg.js')
 mongoose.connect(cfg.URI , {useUnifiedTopology: true, useNewUrlParser: true});
 const userSchema = new Schema ({
     userId: Number,
-    userName:String,
-    dateNow: Number,
+    userName: String,
+    createdAt: { type: Date, default: Date.now },
     status: String
 })
 const User = mongoose.model ('user', userSchema);
