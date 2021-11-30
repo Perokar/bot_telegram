@@ -1,9 +1,11 @@
 
 const {addNewUser, checkUser, clearUser, User} = require('../schems/userSchema');
 const {Post} = require('../schems/postSchema');
-const {bot} = require ('../index');
+const TelegramApi = require('node-telegram-bot-api');
 const cron = require('node-cron');
-console.log('ku');
+const token = "2094226777:AAGVqTju7yVGZoZp72UOfSSDO56cG7OPx8k";
+const bot = new TelegramApi(token, {polling:true});
+
 async function send(){
     const usersArr = await User.find();
     const postArr = await Post.find();
@@ -17,10 +19,10 @@ async function send(){
         console.log(day1UsersId);
         if (day1UsersId){
             const day1PostArr = postArr.filter(postage=>{
-                if (postage.datePost == 1){
-                    return postage.post;
-                }
-            })
+                postage.datePost == 1 })
+                day1PostArr.map(post =>{
+                    cron.schedule('')
+                })
             console.log (day1PostArr)
             
         }
