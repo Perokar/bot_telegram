@@ -4,7 +4,7 @@ const TelegramApi = require('node-telegram-bot-api');
 const {addNewUser,checkUser, clearUser, User} = require('./schems/userSchema');
 const {addPost, checkPost, clearPost, sendStartPost} = require('./schems/postSchema');
 const {send} = require('./send/send')
-const token = "2094226777:AAGVqTju7yVGZoZp72UOfSSDO56cG7OPx8k";
+const token = "";
 const bot = new TelegramApi(token, {polling:true});
 
 bot.on("message",   async (msg, prop)=>{
@@ -12,19 +12,19 @@ bot.on("message",   async (msg, prop)=>{
       userId:  msg.from.id,
       userName:  msg.from.first_name,
       dateNow: new Date().getDate(),
-      status: 'day1'
+      status: 'day0'
          }
   if (msg.text == '/start'){
           addNewUser(id);
           const  messageArr = await sendStartPost();
           messageArr.forEach((text)=>{
-                  bot.sendMessage(msg.from.id, text.post, {parse_mode: 'Markdown', disable_web_page_preview: true}).then;
+                  bot.sendMessage(msg.from.id, text.post, {parse_mode: 'Markdown', disable_web_page_preview: true});
                  })
           
          }
   if (msg.text == "/test") // поиск
   {             bot.sendMessage(msg.from.id, "test ok")
-          //send();
+          send();
 //    const userCollection = await checkUser();
 //    const posts = await checkPost();
 //       userCollection.map((obj)=>{
@@ -34,10 +34,10 @@ bot.on("message",   async (msg, prop)=>{
 //         })
 //   //bot.sendMessage(msg.from.id, `[Піч на колесах \- DXP](https://youtu.be/8Sh2twEoXBY) Domino's Pizza разом з американською інженерною компанією Roush Enterprises побудували спеціальний автомобіль для доставки піци - Delivery ExPert або DXP. Особливість автомобіля в тому, що він обладнаний вбудованою піччю для постійного підігріву піци, тож клієнт завжди отримує піцу ідеальної температури \- 60 градусів\.`, {parse_mode: 'Markdown', disable_web_page_preview: true})
   } 
-//   if (msg.text == "/add") // поиск
-//   {
-//   addPost();
-//   }
+  if (msg.text == "/add") // поиск
+  {
+  addPost();
+  }
 if (msg.text == "/find") // Добавление в базу
        { 
          checkUser('day1');
@@ -46,7 +46,7 @@ if (msg.text == "/find") // Добавление в базу
         }
 if (msg.text == "/clean") // Удаление из базы
         {
-        //clearPost();
+        clearPost();
         clearUser();
         bot.sendMessage(msg.from.id, "База обнулена")
         } 
